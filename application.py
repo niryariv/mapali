@@ -29,10 +29,11 @@ def submit_form():
     avatar_url = request.form["avatar_url"]
 
     # Provide some procedure for storing the new details
-    update_account(username, full_name, avatar_url)
+    # update_account(username, full_name, avatar_url)
     
     # Redirect to the user's profile page, if appropriate
-    return redirect(url_for('profile'))
+    #return redirect(url_for('profile'))
+    return "hello %s %s %s" % (username, full_name, avatar_url)
 
 
 # Listen for GET requests to yourdomain.com/sign_s3/
@@ -42,6 +43,8 @@ def sign_s3():
     AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     S3_BUCKET = os.environ.get('S3_BUCKET')
+
+    # return "AWS_ACCESS_KEY=%s AWS_SECRET_KEY=%s S3_BUCKET=%s" % (AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET)
 
     # Collect information on the file from the GET parameters of the request:
     object_name = urllib.quote_plus(request.args.get('s3_object_name'))
@@ -54,6 +57,9 @@ def sign_s3():
     # Generate the PUT request that JavaScript will use:
     put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
      
+    # print put_request 
+    # print AWS_SECRET_KEY
+
     # Generate the signature with which the request can be signed:
     signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
     # Remove surrounding whitespace and quote special characters:
