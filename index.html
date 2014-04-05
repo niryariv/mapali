@@ -6,10 +6,12 @@
 
     <h1>Add Image</h1>
 
-    <input type="file" id="files"/>
+    <div>
+        <span style="" id="status"></span><input type="file" id="files"/>
+    </div>
     <!-- <div style="width:300px;" id="preview"></div> -->
 
-    <div style="" id="status"></div>
+    
     
     <form method="POST" action="http://mapali.herokuapp.com/submit_form/">
         <input type="hidden" id="lng" name="lng" value="" />
@@ -40,9 +42,9 @@
                 var spinner = new Spinner().spin(target);
             },
             onFinishS3Put: function(public_url) {
-                $('#status').html('Upload completed. Uploaded to: '+ public_url);
-                $("#image_url").val(public_url);
-                $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
+                $('#status').html('<img src="/mapali/static/media/done.png" style="width:32px;" />');
+                // $("#image_url").val(public_url);
+                // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
             },
             onError: function(status) {
                 $('#status').html('Upload error: ' + status);
