@@ -43,7 +43,7 @@
             },
             onFinishS3Put: function(public_url) {
                 $('#status').html('<img src="/mapali/static/media/done.png" style="width:32px;" />');
-                // $("#image_url").val(public_url);
+                $("#image_url").val(public_url);
                 // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
             },
             onError: function(status) {
