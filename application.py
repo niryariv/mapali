@@ -28,7 +28,7 @@ else:  # work locally
     except ConnectionFailure:
         print('You should have mongodb running')
 
-    db = m_conn[db_name]
+    db = m_conn['mapali']
     RUNNING_LOCAL = True
     app.debug = True  # since we're local, keep debug on
 
