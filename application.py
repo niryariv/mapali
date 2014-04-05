@@ -32,16 +32,16 @@ def test():
 @app.route("/submit_form/", methods=["POST"])
 def submit_form():
     # Collect the data posted from the HTML form in account.html:
-    username = request.form["username"]
-    full_name = request.form["full_name"]
-    avatar_url = request.form["avatar_url"]
+    description = request.form["description"]
+    image_url = request.form["image_url"]
+    latlng = request.form["latlng"]
 
     # Provide some procedure for storing the new details
     # update_account(username, full_name, avatar_url)
     
     # Redirect to the user's profile page, if appropriate
     #return redirect(url_for('profile'))
-    return "hello %s %s %s" % (username, full_name, avatar_url)
+    return "hello %s %s %s" % (description, latlng, image_url)
 
 
 # Listen for GET requests to yourdomain.com/sign_s3/
