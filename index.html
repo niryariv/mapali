@@ -21,6 +21,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="/mapali/static/js/lodash.min.js"></script>
     <script type="text/javascript" src="/mapali/static/js/s3upload.js"></script>
+    <script type="text/javascript" src="/mapali/static/js/jquery.geolocation.min.js"></script>
 
     <script type="text/javascript">
     function s3_upload(){
@@ -42,6 +43,17 @@
     }
 
     $().ready(function() {
+        
+        $.geolocation.get({
+            win: function(loc){
+                alert ("lat:" + loc.coords.latitude);
+            }, 
+            fail: function(e){
+               // alert ("Please allow watching your position");
+            }, 
+            options: {'enableHighAccuracy': true }
+        });
+        
         $('#files').on("change", s3_upload);
     });
     </script>
