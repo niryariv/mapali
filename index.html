@@ -24,6 +24,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="/mapali/static/js/lodash.min.js"></script>
     <script type="text/javascript" src="/mapali/static/js/s3upload.js"></script>
+    <script type="text/javascript" src="/mapali/static/js/spin.min.js"></script>
     <script type="text/javascript" src="/mapali/static/js/jquery.geolocation.min.js"></script>
 
     <script type="text/javascript">
@@ -33,7 +34,9 @@
             file_dom_selector: '#files',
             s3_sign_put_url: 'http://mapali.herokuapp.com/sign_s3/',
             onProgress: function(percent, message) {
-                $('#status').html('Upload progress: ' + percent + '% ' + message);
+                // $('#status').html('Upload progress: ' + percent + '% ' + message);
+                var target = document.getElementById('status');
+                var spinner = new Spinner().spin(target);
             },
             onFinishS3Put: function(public_url) {
                 $('#status').html('Upload completed. Uploaded to: '+ public_url);
