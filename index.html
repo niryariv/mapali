@@ -10,7 +10,7 @@
     <div style="width:300px;" id="preview"></div>
 
     
-    <form method="POST" action="http://mapali.herokuapp.com/submit_form/">
+    <form method="POST" action="http://0.0.0.0:5000/submit_form/">
         <input type="hidden" id="lng" name="lng" value="" />
         <input type="hidden" id="lat" name="lat" value="" />
 
@@ -31,7 +31,7 @@
     function s3_upload(){
         var s3upload = new S3Upload({
             file_dom_selector: '#files',
-            s3_sign_put_url: 'http://mapali.herokuapp.com/sign_s3/',
+            s3_sign_put_url: 'http://0.0.0.0:5000/sign_s3/',
             onProgress: function(percent, message) {
                 $('#status').html('Upload progress: ' + percent + '% ' + message);
             },
