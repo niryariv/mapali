@@ -11,6 +11,9 @@
 
     
     <form method="POST" action="/submit_form/">
+        <input type="hidden" id="lng" name="lng" value="" />
+        <input type="hidden" id="lat" name="lat" value="" />
+
         <input type="hidden" id="image_url" name="image_url" value="" />
         <br />
         <textarea id="description" name="description" rows="5"></textarea>
@@ -24,6 +27,7 @@
     <script type="text/javascript" src="/mapali/static/js/jquery.geolocation.min.js"></script>
 
     <script type="text/javascript">
+
     function s3_upload(){
         var s3upload = new S3Upload({
             file_dom_selector: '#files',
@@ -42,18 +46,26 @@
         });
     }
 
+    function update_position(loc){
+        lat = loc.coords.latitude;
+        lng = loc.coords.longitude;
+
+        $('#lng').value = lng;
+        $('#lat').value = lat;
+    }
+
     $().ready(function() {
         
         $.geolocation.get({
-            win: function(loc){
-                alert ("lat:" + loc.coords.latitude);
-            }, 
+            win: update_position, 
             fail: function(e){
                // alert ("Please allow watching your position");
             }, 
             options: {'enableHighAccuracy': true }
         });
         
+        $.geolocation.watch({win: update_position});
+
         $('#files').on("change", s3_upload);
     });
     </script>
