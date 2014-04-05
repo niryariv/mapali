@@ -7,17 +7,25 @@
 ####
 
 
-from flask import Flask, render_template, request, redirect, Response, url_for
+from flask import Flask, render_template, request, redirect, Response, url_for, make_response
 import time, os, json, base64, hmac, urllib
 from hashlib import sha1
 
 app = Flask(__name__)
 
 # Listen for GET requests to yourdomain.com/account/
-@app.route("/account/")
-def account():
-    # Show the account edit HTML page:
-    return render_template('account.html')
+# @app.route("/account/")
+# def account():
+#     # Show the account edit HTML page:
+#     return render_template('account.html')
+
+@app.route("/test/")
+def test():
+    content = "['test' : 'ok']"
+    r = make_response(content)
+    r.headers['Access-Control-Allow-Origin'] = "*"
+    r.headers['Content-Type'] = "application/json; charset=utf-8"
+    return r
 
 
 # Listen for POST requests to yourdomain.com/submit_form/
