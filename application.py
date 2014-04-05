@@ -10,22 +10,28 @@
 from flask import Flask, render_template, request, redirect, Response, url_for, make_response
 import time, os, json, base64, hmac, urllib
 from hashlib import sha1
+import pymongo
+from pymongo.errors import ConnectionFailure
+from bson import json_util
 
 app = Flask(__name__)
 
-# Listen for GET requests to yourdomain.com/account/
-# @app.route("/account/")
-# def account():
-#     # Show the account edit HTML page:
-#     return render_template('account.html')
+MONGO_URL = os.environ.get('MONGOLAB_URI')
 
-@app.route("/test/")
-def test():
-    content = "['test' : 'ok']"
-    r = make_response(content)
-    r.headers['Access-Control-Allow-Origin'] = "*"
-    r.headers['Content-Type'] = "application/json; charset=utf-8"
-    return r
+if MONGO_URL:  # on Heroku, get a connection
+    m_conn = pymongo.Connection(MONGO_URL)
+    db = m_conn[urlparse(MONGO_URL).path[1:]]
+    RUNNING_LOCAL = False
+else:  # work locally
+    try:
+        m_conn = pymongo.Connection('localhost', 27017)
+    except ConnectionFailure:
+        print('You should have mongodb running')
+
+    db = m_conn['citymap']
+    RUNNING_LOCAL = True
+    app.debug = True  # since we're local, keep debug on
+
 
 
 # Listen for POST requests to yourdomain.com/submit_form/
@@ -34,10 +40,15 @@ def submit_form():
     # Collect the data posted from the HTML form in account.html:
     description = request.form["description"]
     image_url = request.form["image_url"]
-    latlng = request.form["latlng"]
+    lng = request.form["lng"]
+    lat = request.form["lat"]
 
-    # Provide some procedure for storing the new details
-    # update_account(username, full_name, avatar_url)
+    db.locations.insert({
+        'description'   : description,
+        'image_url'     : image_url,
+        'loc'           : { 'lat' : lat, 'lng' : lng }
+        })
+
     
     # Redirect to the user's profile page, if appropriate
     #return redirect(url_for('profile'))
