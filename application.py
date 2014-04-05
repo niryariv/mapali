@@ -72,9 +72,14 @@ def sign_s3():
         'signed_request': '%s?AWSAccessKeyId=%s&Expires=%d&Signature=%s' % (url, AWS_ACCESS_KEY, expires, signature),
         'url': url
     })
-    
+
+    r = make_response(content)
+    r.headers['Access-Control-Allow-Origin'] = "*"
+    r.headers['Content-Type'] = "application/json; charset=utf-8"
+    return r
+
     # Return the signed request and the anticipated URL back to the browser in JSON format:
-    return Response(content, mimetype='text/plain; charset=x-user-defined')
+    # return Response(content, mimetype='text/plain; charset=x-user-defined', )
     
 # Main code
 if __name__ == '__main__':
