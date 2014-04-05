@@ -46,13 +46,13 @@ def submit_form():
     db.locations.insert({
         'description'   : description,
         'image_url'     : image_url,
-        'loc'           : { 'lat' : lat, 'lng' : lng }
+        'loc'           : { 'lng' : lng, 'lat' : lat }
         })
 
     
     # Redirect to the user's profile page, if appropriate
     #return redirect(url_for('profile'))
-    return "hello %s %s %s" % (description, latlng, image_url)
+    return "hello %s %s %s %s" % (description, lat, lng, image_url)
 
 
 # Listen for GET requests to yourdomain.com/sign_s3/
