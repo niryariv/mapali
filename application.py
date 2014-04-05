@@ -9,6 +9,7 @@
 
 from flask import Flask, render_template, request, redirect, Response, url_for, make_response
 import time, os, json, base64, hmac, urllib
+from urlparse import urlparse
 from hashlib import sha1
 import pymongo
 from pymongo.errors import ConnectionFailure
