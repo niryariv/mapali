@@ -25,10 +25,10 @@
     </form>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="/mapali/static/js/lodash.min.js"></script>
-    <script type="text/javascript" src="/mapali/static/js/s3upload.js"></script>
-    <script type="text/javascript" src="/mapali/static/js/spin.min.js"></script>
-    <script type="text/javascript" src="/mapali/static/js/jquery.geolocation.min.js"></script>
+    <script type="text/javascript" src="static/js/lodash.min.js"></script>
+    <script type="text/javascript" src="static/js/s3upload.js"></script>
+    <script type="text/javascript" src="static/js/spin.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.geolocation.min.js"></script>
 
     <script type="text/javascript">
 
@@ -42,7 +42,7 @@
                 var spinner = new Spinner().spin(target);
             },
             onFinishS3Put: function(public_url) {
-                $('#status').html('<img src="/mapali/static/media/done.png" style="width:32px;" />');
+                $('#status').html('<img src="static/media/done.png" style="width:32px;" />');
                 $("#image_url").val(public_url);
                 // $("#preview").html('<img src="'+public_url+'" style="width:300px;" />');
             },
